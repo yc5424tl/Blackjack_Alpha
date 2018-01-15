@@ -1,0 +1,39 @@
+1) Create Decks, Shuffle, Add to Shoe
+
+
+2) Add Cut Card
+
+    Player to cut:
+
+        - First player to table if game is just beginning
+
+        - The player on whose box the cutting card appeared during the last round of play
+
+        - Farthest player on right if drawn by dealer "shall cut the cards by placing the cutting card in the stack at least 10 cards in from either end."
+
+
+3) Discard 1st Card (The Burn Card)
+
+    - can be disclosed at request of player
+
+4) Place Bets
+
+5) Deal Cards (Starting with player on Dealers Left)
+
+       - One Card Face-Up to each Player
+       - One Card Face-Down to Dealer
+       - A Second Card Face-Up to each Player
+       - A Second Card to Dealer, Face-Down
+       - Dealer's First Card turns Face-Up
+
+          if up card is ace or 10/Face:
+          players offered insurance - betting that dealer has
+          blackjack - pays 2-1
+
+
+
+
+ "a blackjack shall mean an ace and any card having a point value of 10 dealt as the initial two cards to a player or dealer, provided that if the player has a ten value card and an ace after splitting a pair of aces or tens, that is not a blackjack"     https://dps.mn.gov/divisions/age/gambling/Documents/Gaming%20Compacts/fond-du-lac-blackjack.pdf
+
+
+ blackjack pays between 3-2 and 2-1, discretion of the house
