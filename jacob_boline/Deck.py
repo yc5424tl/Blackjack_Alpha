@@ -5,21 +5,16 @@ import random
 class Deck:
 
     def __init__(self):
-        cards = []
+        self.cards_in_deck = []
         for suit in Card.Suits:
             for rank in Card.Ranks:
-                card = Card.Card(suit, rank)
-                # print(card.__str__())
-                # print(card.get_rank())
-                # print(card.get_suit())
-                cards.append(card)
-        self.cards_in_deck = cards
+                self.cards_in_deck.append(Card.Card(suit, rank))
 
     def __str__(self):
-
-        print("This deck contains: \n")
+        count = 1
         for card in self.cards_in_deck:
-            print(card.__str__())
+            print(str(count) + ' Card Rank: ' + Card.Card.get_rank(card) + ' Card Suit: ' + Card.Card.get_suit(card))
+            count += 1
         print()
 
     def shuffle(self):
@@ -34,6 +29,3 @@ class Deck:
     def __next__(self):
         for index in range(len(self.cards_in_deck) - 1):
             yield self.cards_in_deck[index]
-
-
-

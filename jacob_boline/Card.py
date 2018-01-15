@@ -21,13 +21,3 @@ class Card:
 
     def get_rank(self):
         return self.rank
-
-
-
-
-
-
-
-
-
-

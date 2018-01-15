@@ -5,12 +5,15 @@ def main():
 
     shoe = Shoe.Shoe()
 
-    for x in range(4):
+    for x in range(3):  # produces 156 cards
+
+        # 'TODO combine below in to an 'add deck to game' function 
         new_deck = Deck.Deck()
         new_deck.shuffle()
-        shoe.add_deck(new_deck)
+        for card in range(52):
+            card_for_shoe = new_deck.deal_card()
+            shoe.cards_in_shoe.append(card_for_shoe)
 
-    # shoe.__str__()
     shoe.remove_burn_card()
     shoe.show_burn_card()
 
