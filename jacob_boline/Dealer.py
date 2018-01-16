@@ -7,8 +7,10 @@ class Dealer:
         self.name = 'The Dealer'
         self.score = 0
 
+
     def __str__(self):
         return self.name
+
 
     def add_card_to_hand(self, card):
         self.hand.append(card)
@@ -44,8 +46,6 @@ class Dealer:
         soft_ace = False
         score = 0
 
-
-        # print('in score_hand, this should be 0 --> ' + str(score))
         for card in self.hand:
             rank = card.get_rank()
             if rank == 'Ace' and ace_in_hand is True:
@@ -54,34 +54,25 @@ class Dealer:
                 ace_in_hand = True
             else:
                 score += scores.get(rank)
-                # print('No Ace: score += scores.get(rank) --> ' + str(score))
-
 
         if ace_in_hand:
             if score + scores.get('Ace')[1] > 21:
                 score += scores.get('Ace')[0]
-                # print("Hard Ace: score += scores.get('Ace')[0] --> " + str(score))
             else:
                 score += scores.get('Ace')[1]
-                # print("Soft Ace: score += scores.get('Ace')[1] --> " + str(score))
                 soft_ace = True
 
-
-
-        # print('right before "if score > 21....print player busts", score --> ' + str(score))
         if score > 21:
             print(self.name + " busts with " + str(score))
             self.score = 1
 
-
         elif 1 < score < 22:
-            # print('in "elif 1 < score < 22" w/ print after, score --> ' + str(score))
             if soft_ace:
                 print(self.name + "'s score: Soft " + str(score))
             if not soft_ace:
                 print(self.name + "'s score: " + str(score))
-
             self.score = score
+
         print('\n')
 
 

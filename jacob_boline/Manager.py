@@ -1,9 +1,8 @@
-from jacob_boline import Dealer, Card
-from jacob_boline import Player, Deck, BlackjackTable, Shoe
+from jacob_boline import Dealer, Player, Deck, BlackjackTable, Shoe
 
 shoe = Shoe.Shoe()
 dealer = Dealer.Dealer()
-table = BlackjackTable.BlackjackTable(5, 500)
+table = BlackjackTable.BlackjackTable(5, 500) # (min_bet, max_bet)
 
 
 def add_player():
@@ -176,15 +175,15 @@ def get_results():
         if table.players.get(seat) is not None:
             player = table.players.get(seat)
             if player.score == 1:
-                pass
-            if player.score == 100 and player.score > dealer.score:
+                print(player.name + "'s hand busted, losing " + str(player.bet))
+            elif  player.score == 100 and player.score > dealer.score:
                 print('Blackjack pays ' + player.name + ' at 2-to-1 for ' + str(player.bet * 2))
                 player.bank += player.bet * 3     # returns original bet and the 2-1 payout
-            if player.score == dealer.score:
+            elif player.score == dealer.score:
                 print(player.name + "'s hand pushes, returning bet of " + str(player.bet) + ' to bank.')
                 player.bank += player.bet
-            if dealer.score < player.score <= 21:
-                print(player.name + ' hand wins for ' + str(player.bet))
+            elif dealer.score < player.score <= 21:
+                print(player.name + "'s hand wins for " + str(player.bet))
                 player.bank += player.bet * 2
 
 def clear_bets():
