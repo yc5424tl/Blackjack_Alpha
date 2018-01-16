@@ -1,5 +1,4 @@
 
-
 Suits = "Clubs Diamonds Hearts Spades".split()
 Ranks = "Ace Two Three Four Five Six Seven Eight Nine Ten Jack Queen King".split()
 

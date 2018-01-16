@@ -13,7 +13,9 @@ class Deck:
     def __str__(self):
         count = 1
         for card in self.cards_in_deck:
-            print(str(count) + ' Card Rank: ' + Card.Card.get_rank(card) + ' Card Suit: ' + Card.Card.get_suit(card))
+            print(str(count) +
+                  ' Card Rank: ' + Card.Card.get_rank(card) +
+                  ' Card Suit: ' + Card.Card.get_suit(card))
             count += 1
         print()
 
