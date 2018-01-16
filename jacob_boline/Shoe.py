@@ -20,5 +20,5 @@ class Shoe:
 
     def show_burn_card(self):
         burn_card = self.discard_pile.pop(0)
-        print('Burn Card: ' + burn_card.__str__())
+        print('\n     ======  Burn Card: ' + burn_card.__str__() + '  ======\n\n')
         self.discard_pile.append(burn_card)

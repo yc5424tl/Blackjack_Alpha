@@ -12,9 +12,6 @@ class Card:
     def __str__(self):
         return "{} of {}".format(self.rank, self.suit)
 
-    # def __getitem__(self, index):
-    #     return self[index]
-
     def get_suit(self):
         return self.suit
 
