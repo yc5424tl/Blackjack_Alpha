@@ -97,6 +97,8 @@ class Dealer:
             self.add_card_to_hand(shoe.deal_card())
             self.last_card_dealt()
             self.score_hand()
+            if self.score == 1:
+                break
         if 17 <= self.score <= 21:
             print(self.name + ' stays with ' + str(self.score))
 

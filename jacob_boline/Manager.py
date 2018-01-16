@@ -172,7 +172,7 @@ def start_player_turns():
 
 
 def get_results():
-    for seat in table.players.keys:
+    for seat in table.players.keys():
         if table.players.get(seat) is not None:
             player = table.players.get(seat)
             if player.score == 1:
@@ -202,11 +202,11 @@ def main():
     while True:
         take_bets()
         if not deal_cards():
-            print('STUB: compare_hands aka scores if dealer has a blackjack')
-            pass
+            get_results()
         else:
             start_player_turns()
             dealer.play_dealer_hand(shoe)
+            get_results()
 
 
 if __name__ == '__main__':
