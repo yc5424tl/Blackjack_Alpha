@@ -17,8 +17,10 @@ class Dealer:
         time.sleep(.5)
 
 
-    def clear_hand(self):
+    def clear_hand_and_score(self):
         self.hand.clear()
+        self.score = 0
+
 
 
     def last_card_dealt(self):
@@ -42,8 +44,7 @@ class Dealer:
                   'Nine': 9,
                   **dict.fromkeys(['Ten', 'Jack', 'Queen', 'King'], 10)}
 
-        ace_in_hand = False
-        soft_ace = False
+        ace_in_hand, soft_ace = False, False
         score = 0
 
         for card in self.hand:
@@ -82,6 +83,7 @@ class Dealer:
 
 
     def play_dealer_hand(self, shoe):
+        print("\n===== DEALER'S TURN  =====\n")
         self.show_hand()
         while self.score < 17:
             print('The Dealer Hits.')
@@ -91,7 +93,8 @@ class Dealer:
             if self.score == 1:
                 break
         if 17 <= self.score <= 21:
-            print(self.name + ' stays with ' + str(self.score))
+            print(self.name + ' stays with ' + str(self.score) + '\n\n')
+            time.sleep(2)
 
     def check_for_blackjack(self):
 
@@ -109,8 +112,7 @@ class Dealer:
             time.sleep(.2)
             print('.')
 
-        has_ace = False
-        has_ten_point_card = False
+        has_ace, has_ten_point_card = False, False
 
         for card in self.hand:
             if card.get_rank() in ['Ten', 'Jack', 'Queen', 'King']:

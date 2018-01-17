@@ -12,8 +12,9 @@ class Shoe:
             print(card.__str__())
 
     def remove_burn_card(self):
-        card_removed = self.cards_in_shoe.pop(0)
-        self.discard_pile.append(card_removed)
+        # card_removed = self.cards_in_shoe.pop(0)
+        # self.discard_pile.append(card_removed)
+        self.discard_pile.append(self.cards_in_shoe.pop(0))
 
     def deal_card(self):
             return self.cards_in_shoe.pop(0)

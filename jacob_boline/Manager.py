@@ -1,4 +1,5 @@
 from jacob_boline import Dealer, Player, Deck, BlackjackTable, Shoe
+from time import sleep
 
 shoe = Shoe.Shoe()
 dealer = Dealer.Dealer()
@@ -64,7 +65,7 @@ def place_bet(player_up):
     while True:
         try:
             print(player_up.name + ', your have ' + str(player_up.bank) + ' in your bank.')
-            wager = int(input('Enter your bet   \n'))
+            wager = int(input('     Enter your bet.   \n'))
             while (table.max_bet < wager) or (wager % 1 != 0) or (wager > player_up.bank) or (wager < table.min_bet):
                 if wager > player_up.bank:
                     print('Your bet cannot exceed your total funds of ' + str(player_up.bank))
@@ -90,6 +91,7 @@ def take_bets():
             player_up = table.players.get(seat)
             place_bet(player_up)
     print('\n        ==========  BETS CLOSED  ==========         \n\n')
+    sleep(1)
 
 
 def deal_cards():
@@ -98,9 +100,12 @@ def deal_cards():
             if table.players.get(seat) is not None:
                 table.players.get(seat).add_card_to_hand(shoe.deal_card())
                 table.players.get(seat).last_card_dealt()
+                print('\n')
+                sleep(.5)
         dealer.add_card_to_hand(shoe.deal_card())
         if deal == 0:
-            print('First Card to Dealer placed Face-Down')
+            print('First Card to Dealer placed Face-Down \n\n')
+            sleep(.5)
         if deal == 1:
             dealer.last_card_dealt()
             # offer_insurance()
@@ -108,12 +113,14 @@ def deal_cards():
                 if dealer.check_for_blackjack():
                     print('Dealer turns over a ' + dealer.hand[0].__str__() + ' for a Blackjack!')
                     dealer.score = 100
+                    print('deal_cards() returning false')
                     return False
                 else:
                     print('Dealer does NOT have a Blackjack.')
                     return True
             return True
 
+        # its a hashtag party
 
 def player_action(action, player):
 
@@ -142,6 +149,7 @@ def player_action(action, player):
 
 def present_options(player):
 
+    sleep(1)
     if player.score == 1:
         print(player.name + ' lost a bet of ' + str(player.bet))
 
@@ -160,6 +168,7 @@ def start_player_turns():
     for seat in table.players.keys():
         if table.players.get(seat) is not None:
             player_up = table.players.get(seat)
+            sleep(1)
             print("\n===== " + player_up.name.upper() + "'S TURN  =====\n")
 
             if player_up.check_for_blackjack():
@@ -174,6 +183,7 @@ def get_results():
     for seat in table.players.keys():
         if table.players.get(seat) is not None:
             player = table.players.get(seat)
+            sleep(1)
             if player.score == 1:
                 print(player.name + "'s hand busted, losing " + str(player.bet))
             elif  player.score == 100 and player.score > dealer.score:
@@ -185,11 +195,25 @@ def get_results():
             elif dealer.score < player.score <= 21:
                 print(player.name + "'s hand wins for " + str(player.bet))
                 player.bank += player.bet * 2
+            elif 21 >= dealer.score > player.score:
+                print(player.name + "'s hand loses on a wager of " + str(player.bet))
+    print('\n\n      ======  STARTING NEXT HAND  ======      \n\n')
+    sleep(2)
 
-def clear_bets():
+def clear_bets_and_scores():
     for seat in table.players.keys():
         if table.players.get(seat) is not None:
-            table.players.get(seat).bet = 0
+            player = table.players.get(seat)
+            player.score = 0
+            player.bet = 0
+            player.hand = []
+    dealer.clear_hand_and_score()
+
+
+
+
+
+
 
 def main():
 
@@ -206,6 +230,7 @@ def main():
             start_player_turns()
             dealer.play_dealer_hand(shoe)
             get_results()
+        clear_bets_and_scores()
 
 
 if __name__ == '__main__':
