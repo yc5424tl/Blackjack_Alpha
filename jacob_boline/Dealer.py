@@ -17,7 +17,7 @@ class Dealer:
         time.sleep(.5)
 
 
-    def clear_hand_and_score(self):
+    def clear_hand_and_score(self):  # Used at end of round to reset before next round begins.
         self.hand.clear()
         self.score = 0
 
@@ -50,18 +50,18 @@ class Dealer:
         for card in self.hand:
             rank = card.get_rank()
             if rank == 'Ace' and ace_in_hand is True:
-                score += 1
+                score += 1  # Any ace beyond one will always be scored as 1 (otherwise the hand would bust)
             elif rank == 'Ace':
-                ace_in_hand = True
+                ace_in_hand = True   # Trigger to aid in scoring
             else:
                 score += scores.get(rank)
 
         if ace_in_hand:
-            if score + scores.get('Ace')[1] > 21:
+            if score + scores.get('Ace')[1] > 21:  # if scoring the ace as 11 busts the hand, score the ace as 1
                 score += scores.get('Ace')[0]
             else:
                 score += scores.get('Ace')[1]
-                soft_ace = True
+                soft_ace = True   # Trigger for informing player their score is being calculated with an ace currently scored as 11
 
         if score > 21:
             print(self.name + " busts with " + str(score))
@@ -85,11 +85,11 @@ class Dealer:
     def play_dealer_hand(self, shoe):
         print("\n===== DEALER'S TURN  =====\n")
         self.show_hand()
-        while self.score < 17:
+        while self.score < 17:  # dealer forced to keep playing if hand scores below 17
             print('The Dealer Hits.')
-            self.add_card_to_hand(shoe.deal_card())
-            self.last_card_dealt()
-            self.score_hand()
+            self.add_card_to_hand(shoe.deal_card()) # add card to dealer hand
+            self.last_card_dealt() # show card to table
+            self.score_hand()  # check new score
             if self.score == 1:
                 break
         if 17 <= self.score <= 21:
@@ -120,7 +120,7 @@ class Dealer:
             if card.get_rank() == "Ace":
                 has_ace = True
 
-        return has_ace & has_ten_point_card
+        return has_ace & has_ten_point_card  # Only if both conditions are met will 'True' return, denoting a blackjack
 
 
 

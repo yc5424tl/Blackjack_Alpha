@@ -12,7 +12,7 @@ def add_player():
     while player_name.strip() == '':
         player_name = input('Please enter name.   \n')
     seat_for_player = table.get_open_seat_number()
-    table.add_player(Player.Player(player_name, 315, seat_for_player))
+    table.add_player(Player.Player(player_name, 315, seat_for_player))  # (name, default bank amount, seat)
 
 
 def seat_table():
@@ -61,7 +61,7 @@ def game_setup(number_of_decks):
 
 
 def place_bet(player_up):
-
+                    # Takes input from a player to make a bet, validation for being whole, positive, within their funds, and within table limits.
     while True:
         try:
             print(player_up.name + ', your have ' + str(player_up.bank) + ' in your bank.')
@@ -85,7 +85,7 @@ def place_bet(player_up):
             continue
 
 
-def take_bets():
+def take_bets():      # Loops through each player at the table, prompting for a bet.
     for seat in table.players.keys():
         if table.players.get(seat) is not None:
             player_up = table.players.get(seat)
@@ -95,7 +95,10 @@ def take_bets():
 
 
 def deal_cards():
-    for deal in range(2):
+
+    #TODO until a cut card feature is implemented, add a try/except to catch an empty shoe, show a final score? 
+
+    for deal in range(2):                   #  one card dealt to each player, and dealer,  twice around
         for seat in table.players.keys():
             if table.players.get(seat) is not None:
                 table.players.get(seat).add_card_to_hand(shoe.deal_card())
@@ -103,16 +106,16 @@ def deal_cards():
                 print('\n')
                 sleep(.5)
         dealer.add_card_to_hand(shoe.deal_card())
-        if deal == 0:
+        if deal == 0:   # hide dealer's first card
             print('First Card to Dealer placed Face-Down \n\n')
             sleep(.5)
-        if deal == 1:
+        if deal == 1:   # show dealer's second card
             dealer.last_card_dealt()
-            # offer_insurance()
+            #TODO  offer_insurance()
             if dealer.hand[-1].get_rank() in ['Ace', 'Ten', 'Jack', 'Queen', 'King']:
-                if dealer.check_for_blackjack():
+                if dealer.check_for_blackjack():  # check for dealer blackjack before play moves on.
                     print('Dealer turns over a ' + dealer.hand[0].__str__() + ' for a Blackjack!')
-                    dealer.score = 100
+                    dealer.score = 100 # blackjack score
                     print('deal_cards() returning false')
                     return False
                 else:
@@ -120,7 +123,7 @@ def deal_cards():
                     return True
             return True
 
-        # its a hashtag party
+        #### its a hash-tag party####
 
 def player_action(action, player):
 
@@ -128,6 +131,7 @@ def player_action(action, player):
         print(player.name + ' stays with a ' + str(player.score))
 
 
+    # add card from shoe to player hand, show card, score_hand will either end turn via bust/stay or offer any possible plays available
     if action == 'hit':
         player.add_card_to_hand(shoe.deal_card())
         player.last_card_dealt()
@@ -140,24 +144,25 @@ def player_action(action, player):
         print('STUB: player action == split')
         pass
         # TODO split logic
+        # Split is being displayed under the correct conditions
 
     if action == 'double down':
         print('STUB: player action == double down')
         pass
         # TODO double down logic
-
+        # double down is being presented under the correct conditions
 
 def present_options(player):
 
     sleep(1)
-    if player.score == 1:
+    if player.score == 1:  # When a player busts, their score is set to 1 (for easy comparison). Here, this score will terminate the players turn.
         print(player.name + ' lost a bet of ' + str(player.bet))
 
-    elif player.score == 21:
+    elif player.score == 21:   # Players are forced to stay with a score of 21
         player.show_hand()
         print(player.name + ' stays.')
 
-    else:
+    else:                   # If the above conditions are not met, the players will then be shown 'the table' along with a list of possible plays
         dealer.dealers_top_card()
         player.show_hand()
         selected_action = player.select_play_action()
@@ -173,9 +178,9 @@ def start_player_turns():
 
             if player_up.check_for_blackjack():
                 print(player_up.name + ' has a Blackjack!')
-                player_up.score = 100
+                player_up.score = 100      # arbitrary number assigned, only needed to be > 21
 
-            else:
+            else:                          #if no blackjack, player is presented with a list of possible plays to choose from
                 present_options(player_up)
 
 
@@ -186,21 +191,21 @@ def get_results():
             sleep(1)
             if player.score == 1:
                 print(player.name + "'s hand busted, losing " + str(player.bet))
-            elif  player.score == 100 and player.score > dealer.score:
+            elif  player.score == 100 and player.score > dealer.score:   # checks for blackjack and that the dealer doesn't also have one
                 print('Blackjack pays ' + player.name + ' at 2-to-1 for ' + str(player.bet * 2))
                 player.bank += player.bet * 3     # returns original bet and the 2-1 payout
             elif player.score == dealer.score:
                 print(player.name + "'s hand pushes, returning bet of " + str(player.bet) + ' to bank.')
-                player.bank += player.bet
+                player.bank += player.bet   # bet returned to players bank
             elif dealer.score < player.score <= 21:
                 print(player.name + "'s hand wins for " + str(player.bet))
-                player.bank += player.bet * 2
+                player.bank += player.bet * 2  # returns bet along with the equal amount in winnings
             elif 21 >= dealer.score > player.score:
-                print(player.name + "'s hand loses on a wager of " + str(player.bet))
+                print(player.name + "'s hand loses on a wager of " + str(player.bet))   #no further action to the bank as the bet has already been removed
     print('\n\n      ======  STARTING NEXT HAND  ======      \n\n')
     sleep(2)
 
-def clear_bets_and_scores():
+def clear_bets_and_scores():   # resets all scores, bets, and hands to zero/empty at the end of a round
     for seat in table.players.keys():
         if table.players.get(seat) is not None:
             player = table.players.get(seat)

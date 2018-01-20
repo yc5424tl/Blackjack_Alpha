@@ -38,6 +38,7 @@ class Player(Dealer.Dealer):
             options_dict['DOUBLE DOWN'] = False
 
         print('Options: ' + ', '.join([option for option in options_dict if options_dict.get(option) is True]))
+        # for k, v in options_dict: if v is True, k will be presented as an option of play to the player
 
         while True:
             selection = input('\n     Enter an option to continue.\n')

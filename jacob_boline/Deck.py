@@ -4,12 +4,14 @@ import random
 
 class Deck:
 
+    # Constructs a deck of cards
     def __init__(self):
         self.cards_in_deck = []
         for suit in Card.Suits:
             for rank in Card.Ranks:
                 self.cards_in_deck.append(Card.Card(suit, rank))
 
+    # Can use to verify deck build
     def __str__(self):
         count = 1
         for card in self.cards_in_deck:
