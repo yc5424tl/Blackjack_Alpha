@@ -62,6 +62,8 @@ def game_setup(number_of_decks):
 
 def place_bet(player_up):
                     # Takes input from a player to make a bet, validation for being whole, positive, within their funds, and within table limits.
+
+                    #TODO either remove player, offer to increase bank, or quit game when a player's bank goes below the table min
     while True:
         try:
             print(player_up.name + ', your have ' + str(player_up.bank) + ' in your bank.')
@@ -96,7 +98,7 @@ def take_bets():      # Loops through each player at the table, prompting for a 
 
 def deal_cards():
 
-    #TODO until a cut card feature is implemented, add a try/except to catch an empty shoe, show a final score? 
+    #TODO until a cut card feature is implemented, add a try/except to catch an empty shoe, show a final score?
 
     for deal in range(2):                   #  one card dealt to each player, and dealer,  twice around
         for seat in table.players.keys():
